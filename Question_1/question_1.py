@@ -14,14 +14,22 @@ from datetime import datetime
 
 # Define headers and data payload for the API request
 headers = {'Content-type': 'application/json'}
+start_year = 2020
+end_year = 2024
+end_month = datetime.now().month
+
 data = json.dumps({
-    "seriesid": ['CUSR0000SA0', 'CUSR0000SA0L1E', 'CUSR0000SETB01']  # CPI series IDs
+    "seriesid": ['CUSR0000SA0', 'CUSR0000SA0L1E', 'CUSR0000SETB01'],  # CPI series IDs
+    "startyear": start_year,
+    "endyear": end_year,
+    "startmonth": 1,  # Start from January
+    "endmonth": end_month  # End at the current month
 })
 
 # Send the API request
 response = requests.post('https://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
 json_data = json.loads(response.text)
-print(json_data)
+
 # Create a dictionary to store the processed data
 data_dict = {}
 
